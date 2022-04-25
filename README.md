@@ -11,7 +11,7 @@ clinvar.vcf_ ===>  clinvar.vcf_.gz + gnomad.vcf_.gz.gzi
 ```bash
 工具：tabix
 tabix -p vcf clinvar.vcf_.gz
--p, --preset STR           gff, bed, sam, vcf
+# -p, --preset STR           gff, bed, sam, vcf
 ```
 生成gnomad.vcf_.gz.tbi文件
 
@@ -29,10 +29,13 @@ tabix -p vcf clinvar.vcf_.gz
 + [topmed allele frequencies (via dbsnp)](https://slivar.s3.amazonaws.com/topmed.hg38.dbsnp.151.zip) these can be used with ```INFO.topmed_af```. Useful when analyzing data in hg38 because some variants in hg38 are not visible in GRCh37
 
 ```bash
-slivar expr \
+./slivar expr \
   --gnotate 压缩的注释文件 \
   -o clinvar.annotated.vcf \
   -v clinvar.vcf_.gz
+# -g, --gnotate=GNOTATE      path(s) to compressed gnotate file(s)
+# -o, --out-vcf=OUT_VCF      path to output VCF/BCF (default: /dev/stdout)
+# -v, --vcf=VCF              path to VCF/BCF
 ```
 最终生成的clinvar.annotated.vcf文件中，会根据注释文件的不同，在文件INFO的末尾添加参数
 
@@ -44,7 +47,7 @@ slivar make-gnotate \
     --field Hom:gnomad_nhomalt \
     --prefix gnomad.hg38 \
      gnomad.exomes.r2.0.1.sites.GRCh38.noVEP.norm.bcf \
-     gnomad.genomes.r2.0.1.sites.GRCh38.noVEP.norm.bcf
+     gnomad.genomes.r2.0.1.sites.GRCh38.noVEP.norm.bcf     
 ```
 
 
